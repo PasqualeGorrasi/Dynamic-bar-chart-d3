@@ -1,4 +1,4 @@
-# D3 vue
+# d3_vue
 
 ## Project setup
 ```
