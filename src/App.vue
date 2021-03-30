@@ -20,25 +20,36 @@ export default {
     // select visual environment
     const svg = d3.select('#viz');
 
-    //join my data
-    const rects = svg.selectAll('rect')
-      .data(numbers)
-      .join('rect');
 
-    //update: join()
     const scaleLength = d3.scaleLinear()
       .domain([0, d3.max(numbers)])
       .range([0, 600]);
 
-    const scalePos = function(d, i) {
-      return 20 * i + 20;
-    }
+    const scalePos = d3.scaleBand()
+      .domain(d3.range(numbers.length))
+      .range([0, 300])
+      .paddingInner(0.05)
+      .paddingOuter(0.05);
 
-    rects
-      .attr('x', 20)
-      .attr('height', 19)
-      .attr('y', scalePos)
-      .attr('width', scaleLength);
+    //======== Create g groups =========
+
+    const gs = svg.selectAll('g.bars')
+      .data(numbers)
+      .join('g').attr('class', 'bars');
+
+    gs.attr('transform', (d, i) => `translate(0, ${scalePos(i)})`);
+
+    gs.append('rect')
+      .attr('height', scalePos.bandwidth())
+      .attr('width',scaleLength)
+        .attr('fill', '#0a1f89');
+
+    gs.append('text')
+      .text((d) => d)
+        .attr('x', scaleLength)
+    .attr('y',scalePos.bandwidth()/2);
+
+
   }
 
 
