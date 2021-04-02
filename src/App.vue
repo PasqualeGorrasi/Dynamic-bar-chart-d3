@@ -1,7 +1,24 @@
 <template>
   <div id="app">
-    <h1>d3 visualization within vue</h1>
-    <svg width="800" height="600" id="viz"></svg>
+    <b-container>
+      <b-row>
+        <b-col>
+          <h1>D3 visualization within vue</h1>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col><p>Click to shuffle numbers</p></b-col>
+        <b-col> <b-button @click="shuffleNumbers">Shuffle</b-button></b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <svg width="800" height="600" id="viz"></svg>
+        </b-col>
+      </b-row>
+    </b-container>
+
+
+
 
   </div>
 </template>
@@ -72,12 +89,17 @@ export default {
 
     gs.selectAll('text')
         .data(d => [d])
-        .join('rect')
+        .join('text')
         .text((d) => d)
         .attr('x', scaleLength)
         .attr('y',scalePos.bandwidth()/2);
-  }
   },
+  shuffleNumbers(){
+      const N = Math.round(Math.random()*10);
+      this.numbers = d3.range(N).map(d => Math.round(d+Math.random()*400));
+    },
+  },
+
 }
 </script>
 
