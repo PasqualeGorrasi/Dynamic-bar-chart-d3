@@ -1,4 +1,4 @@
-# d3_vue
+# Dynamic bar chart with D3
 
 ## Project setup
 ```
